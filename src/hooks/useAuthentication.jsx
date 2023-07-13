@@ -24,6 +24,7 @@ export const useAuthenticator = () => {
         }
     }
 
+    //* Register
     const createUser = async (data) => {
         checkIfIsCancelled();
 
@@ -42,17 +43,49 @@ export const useAuthenticator = () => {
             setLoading(false);
             return user;
         } catch (error) {
-            console.error(error.message);
-            console.error(typeof error.message);
-
             let systemErrorMessage;
 
-            if (error.message.includes("Password")) {
+            if (error.message.includes("password")) {
                 systemErrorMessage =
                     "A senha precisa conter no mínimo 6 caracters.";
             } else if (error.message.includes("email-already")) {
                 systemErrorMessage =
                     "O e-mail cadastrado já existe, tente com outro e-mail.";
+            } else if (error.message.includes("invalid-email")) {
+                systemErrorMessage =
+                    "O e-mail utilizado é inválido, tente novamente com outro.";
+            } else {
+                systemErrorMessage =
+                    "Ocorreu um erro ao processar os dados, tente novamente mais tarde.";
+            }
+
+            setError(systemErrorMessage);
+            setLoading(false);
+        }
+    };
+
+    //* Logout
+    const logout = () => {
+        checkIfIsCancelled();
+        signOut(auth);
+    };
+
+    //* Login
+    const login = async (data) => {
+        checkIfIsCancelled();
+        setLoading(true);
+        setError("");
+
+        try {
+            await signInWithEmailAndPassword(auth, data.email, data.password);
+            setLoading(false);
+        } catch (error) {
+            let systemErrorMessage;
+
+            if (error.message.includes("user-not-found")) {
+                systemErrorMessage = "Usuário não encontrado.";
+            } else if (error.message.includes("wrong-password")) {
+                systemErrorMessage = "Senha incorreta.";
             } else {
                 systemErrorMessage =
                     "Ocorreu um erro ao processar os dados, tente novamente mais tarde.";
@@ -67,5 +100,5 @@ export const useAuthenticator = () => {
         return () => setCancelled(true);
     }, []);
 
-    return { auth, createUser, error, loading };
+    return { auth, createUser, error, loading, logout, login };
 };

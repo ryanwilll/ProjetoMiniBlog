@@ -27,12 +27,11 @@ const Register = () => {
         };
 
         if (password !== confirmPassword) {
-            setError("As senhas precisam ser iguais");
+            setError("As senhas precisam ser iguais.");
             return;
         }
 
         const res = await createUser(user);
-        console.log("# res ", res);
     };
 
     useEffect(() => {

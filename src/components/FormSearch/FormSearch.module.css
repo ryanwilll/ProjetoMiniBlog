@@ -1,0 +1,16 @@
+.search_form {
+    max-width: 100%;
+    width: 940px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2em;
+}
+
+.search_form input {
+    margin-right: 10px;
+    width: 50%;
+}
+
+.search_form button {
+    text-align: center;
+}

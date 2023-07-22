@@ -5,3 +5,19 @@
 .login p {
     color: #aaa;
 }
+
+label {
+    position: relative;
+}
+
+.eyes {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.eyes:hover {
+    color: #523e3e;
+}

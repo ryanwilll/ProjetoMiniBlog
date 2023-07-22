@@ -11,6 +11,15 @@
     justify-content: center;
 }
 
+.postContainer img {
+    margin-bottom: 2em;
+    max-width: 600px;
+}
+.body {
+    max-width: 80%;
+    margin: 0 auto;
+}
+
 .tags p {
     margin-right: 1em;
 }

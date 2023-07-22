@@ -1,4 +1,5 @@
 import styles from "./Login.module.css";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 //* Importação dos componentes do React
 import { useEffect, useState } from "react";
@@ -10,6 +11,8 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+
+    const [showPassword, setShowPassword] = useState(false);
 
     const { login, error: authError, loading } = useAuthenticator();
 
@@ -54,15 +57,25 @@ const Login = () => {
                 <label>
                     <span>Senha:</span>
                     <input
-                        type="password"
+                        type={showPassword ? "text" : "password"}
                         name="password"
                         required
                         placeholder="Insira a sua senha"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
+                    <span
+                        onClick={() => setShowPassword(!showPassword)}
+                        className={styles.eyes}
+                    >
+                        {showPassword ? (
+                            <AiOutlineEye />
+                        ) : (
+                            <AiOutlineEyeInvisible />
+                        )}
+                    </span>
                 </label>
-                {!loading && <button className="btn">Cadastrar</button>}
+                {!loading && <button className="btn">Entrar</button>}
                 {loading && (
                     <button className="btn" disabled>
                         Aguarde...

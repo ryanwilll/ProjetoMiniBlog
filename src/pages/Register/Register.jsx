@@ -1,5 +1,6 @@
 //* Importação dos styles
 import styles from "./Register.module.css";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 //* Importação dos componentes do React
 import { useEffect, useState } from "react";
@@ -13,6 +14,8 @@ const Register = () => {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [error, setError] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmePassword, setShowConfirmePassword] = useState(false);
 
     const { createUser, error: authError, loading } = useAuthenticator();
 
@@ -74,24 +77,46 @@ const Register = () => {
                 <label>
                     <span>Senha:</span>
                     <input
-                        type="password"
+                        type={showPassword ? "text" : "password"}
                         name="password"
                         required
                         placeholder="Insira a sua senha"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
+                    <span
+                        onClick={() => setShowPassword(!showPassword)}
+                        className={styles.eyes}
+                    >
+                        {showPassword ? (
+                            <AiOutlineEye />
+                        ) : (
+                            <AiOutlineEyeInvisible />
+                        )}
+                    </span>
                 </label>
                 <label>
                     <span>Confirmação de Senha:</span>
                     <input
-                        type="password"
+                        type={showConfirmePassword ? "text" : "password"}
                         name="confirmPassword"
                         required
                         placeholder="Repita a sua senha"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                     />
+                    <span
+                        onClick={() =>
+                            setShowConfirmePassword(!showConfirmePassword)
+                        }
+                        className={styles.eyes}
+                    >
+                        {showPassword ? (
+                            <AiOutlineEye />
+                        ) : (
+                            <AiOutlineEyeInvisible />
+                        )}
+                    </span>
                 </label>
                 {!loading && <button className="btn">Cadastrar</button>}
                 {loading && (

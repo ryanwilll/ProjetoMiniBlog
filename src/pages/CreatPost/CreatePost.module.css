@@ -10,3 +10,7 @@
     color: #aaa;
     margin-bottom: 2em;
 }
+
+textarea {
+    min-height: 20rem;
+}

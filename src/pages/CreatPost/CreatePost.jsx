@@ -1,10 +1,10 @@
+import React, { useState, useRef } from "react";
+import JoditEditor from "jodit-react";
 import styles from "./CreatePost.module.css";
 
 //* Importações de Hooks
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthValue } from "../../context/AuthContext";
-import { useAuthenticator } from "../../hooks/useAuthentication";
 import { useInsertDocument } from "../../hooks/useInsertDocument";
 
 const CreatePost = () => {
@@ -18,15 +18,19 @@ const CreatePost = () => {
 
     const navigate = useNavigate();
 
+    const editor = useRef(null);
+    const config = {
+        height: 500,
+        readonly: false,
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         setFormError("");
 
-        //? Validação da imagem
         try {
             new URL(image);
         } catch (error) {
-            console.error(error.message);
             setFormError("A imagem precisa ser uma URL");
         }
 
@@ -94,6 +98,12 @@ const CreatePost = () => {
                         value={body}
                         onChange={(e) => setBody(e.target.value)}
                     ></textarea>
+                    {/* <JoditEditor
+                        ref={editor}
+                        value={body}
+                        config={config}
+                        onBlur={(e) => setBody(e.target.value)} // preferred to use only this option to update the content for performance reasons
+                    /> */}
                 </label>
                 <label>
                     <span>Tags</span>
